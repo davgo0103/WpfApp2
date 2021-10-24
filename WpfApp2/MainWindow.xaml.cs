@@ -70,6 +70,10 @@ namespace WpfApp2
         private Color GetDialogColor()
         {
             ColorDialog dlg = new ColorDialog();
+            dlg.ShowDialog();
+
+            System.Drawing.Color dlgColor = dlg.Color;
+            return Color.FromArgb(dlgColor.A, dlgColor.R, dlgColor.G, dlgColor.B);
         }
 
         private void MyCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
