@@ -65,6 +65,8 @@ namespace WpfApp2
         private void coloer_button_Click(object sender, RoutedEventArgs e)
         {
             currentStrokeColor = GetDialogColor();
+            currentStrokeBrush = new SolidColorBrush(currentStrokeColor);
+            color_button.Content = $"筆刷色彩:{currentStrokeColor.ToString()}";
         }
 
         private Color GetDialogColor()

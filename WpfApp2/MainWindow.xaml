@@ -9,7 +9,7 @@
     <StackPanel>
         <ToolBarTray Height="46" Width="797">
             <ToolBar x:Name="toolBar" HorizontalAlignment="Left" Height="39" VerticalAlignment="Center" Width="287">
-                <Button x:Name="coloer_button" Content="筆刷色彩" VerticalAlignment="Top" Height="35" Click="coloer_button_Click"/>
+                <Button x:Name="color_button" Content="筆刷色彩" VerticalAlignment="Top" Height="35" Click="coloer_button_Click"/>
                 <Slider x:Name="slider" Width="120" Height="18" Maximum="20" Minimum="1" SmallChange="6" Value="5" IsSnapToTickEnabled="True" ValueChanged="slider_ValueChanged"/>
                 <Label x:Name="StrokeThinknessLabel" Content="{Binding Value, ElementName=slider}" Height="26" Width="27"/>
                 <Button x:Name="button1" Content="填滿色彩" Height="34" HorizontalAlignment="Left"/>
