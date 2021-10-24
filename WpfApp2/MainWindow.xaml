@@ -14,6 +14,9 @@
                 <Label x:Name="StrokeThinknessLabel" Content="{Binding Value, ElementName=slider}" Height="26" Width="27"/>
                 <Button x:Name="button1" Content="填滿色彩" Height="34" HorizontalAlignment="Left"/>
             </ToolBar>
+            <ToolBar HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="361" Margin="-0.2,0,-337.6,0">
+                <Button x:Name="LineButton" Content="Line" Height="31.2" VerticalAlignment="Top" Width="75"/>
+            </ToolBar>
         </ToolBarTray>
         <Canvas x:Name="MyCanvas" Height="356" MouseMove="MyCanvas_MouseMove" MouseLeftButtonDown="MyCanvas_MouseLeftButtonDown" MouseLeftButtonUp="MyCanvas_MouseLeftButtonUp" Background="#FFC14343"/>
         <StatusBar Height="34">
