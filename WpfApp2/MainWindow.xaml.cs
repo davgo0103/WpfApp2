@@ -26,6 +26,7 @@ namespace WpfApp2
         Color currentStrokeColor;
         Brush currentStrokeBrush = new SolidColorBrush(Colors.Black);
         int currentStrokeThinkness;
+        string currtShape;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,7 +41,12 @@ namespace WpfApp2
 
         private void MyCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            DrawLine();
+            switch (currtShape)
+            {
+                case "Line":
+                    DrawLine();
+                    break;
+            }
         }
 
         private void DrawLine()
@@ -76,6 +82,12 @@ namespace WpfApp2
 
             System.Drawing.Color dlgColor = dlg.Color;
             return Color.FromArgb(dlgColor.A, dlgColor.R, dlgColor.G, dlgColor.B);
+        }
+
+        private void ShapeButton_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as System.Windows.Controls.Button;
+            currtShape = btn.Content.ToString();
         }
 
         private void MyCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
