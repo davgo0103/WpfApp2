@@ -115,6 +115,12 @@ namespace WpfApp2
             currtShape = btn.Content.ToString();
         }
 
+        private void MenuCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (MenuCheckBox.IsChecked == true) MyTooBarTray.Visibility = Visibility.Visible;
+            else MyTooBarTray.Visibility = Visibility.Collapsed;
+        }
+
         private void MyCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             switch (currentAction)
