@@ -14,7 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
 namespace WpfApp2
 {
     /// <summary>
@@ -26,7 +25,8 @@ namespace WpfApp2
         Color currentStrokeColor;
         Brush currentStrokeBrush = new SolidColorBrush(Colors.Black);
         int currentStrokeThinkness;
-        string currtShape;
+        string currtShape = "Line";
+        string currentAction = "Draw";
         public MainWindow()
         {
             InitializeComponent();
@@ -46,7 +46,32 @@ namespace WpfApp2
                 case "Line":
                     DrawLine();
                     break;
+                case "Rectangle":
+                    DrawRectangle();
+                    break;
+                case "Ellipse":
+                    DrawEllipse();
+                    break;
+
             }
+            MyCanvas.Cursor = System.Windows.Input.Cursors.Arrow;
+        }
+
+        private void DrawRectangle()
+        {
+            AdjustPoint();
+            
+
+        }
+
+        private void DrawEllipse()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AdjustPoint()
+        {
+            throw new NotImplementedException();
         }
 
         private void DrawLine()
@@ -92,10 +117,23 @@ namespace WpfApp2
 
         private void MyCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-
-            dest = e.GetPosition(MyCanvas);
-
-            MyLabel.Content = $"座標點:({e.GetPosition(MyCanvas)})-({dest})";
+            switch (currentAction)
+            {
+                case "Draw":
+                    //畫圖模式
+                    if(e.LeftButton == MouseButtonState.Pressed)
+                    {
+                        MyCanvas.Cursor = System.Windows.Input.Cursors.Pen;
+                        dest = e.GetPosition(MyCanvas);
+                        MyLabel.Content = $"座標點:({e.GetPosition(MyCanvas)})-({dest})";
+                    }
+                    break;
+                case "Erase":
+                    var selectedShaoe = e.OriginalSource as Shape;
+                    MyCanvas.Children.Remove(selectedShaoe);
+                    break;
+            }
+            
         }
     }
 }
