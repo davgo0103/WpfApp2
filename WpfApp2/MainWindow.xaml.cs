@@ -129,6 +129,14 @@ namespace WpfApp2
             }
         }
 
+
+        private void ClearCanvasButton_Click(object sender, RoutedEventArgs e)
+        {
+            MyCanvas.Children.Clear();
+            MyCanvas.Cursor = System.Windows.Input.Cursors.Arrow;
+            MyLabel.Content = "Ready";
+        }
+
         private void MyCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             switch (currentAction)
