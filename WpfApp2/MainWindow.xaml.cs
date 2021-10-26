@@ -117,8 +117,16 @@ namespace WpfApp2
 
         private void MenuCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            if (MenuCheckBox.IsChecked == true) MyTooBarTray.Visibility = Visibility.Visible;
-            else MyTooBarTray.Visibility = Visibility.Collapsed;
+            if (MenuCheckBox.IsChecked == true)
+            {
+                MyTooBarTray.Visibility = Visibility.Visible;
+                MyCanvas.Height -= MyTooBarTray.Height;
+            }
+            else
+            {
+                MyTooBarTray.Visibility = Visibility.Collapsed;
+                MyCanvas.Height += MyTooBarTray.Height;
+            }
         }
 
         private void MyCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
