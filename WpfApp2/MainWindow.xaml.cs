@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -135,6 +136,36 @@ namespace WpfApp2
             MyCanvas.Children.Clear();
             MyCanvas.Cursor = System.Windows.Input.Cursors.Arrow;
             MyLabel.Content = "Ready";
+        }
+
+        private void SaveCanvasMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            int w = Convert.ToInt32(MyCanvas.RenderSize.Width);
+            int h = Convert.ToInt32(MyCanvas.RenderSize.Height);
+
+            
+            //將MyCabvas轉成bitmap
+            RenderTargetBitmap rtb = new RenderTargetBitmap(w, h, 64d, 64d, PixelFormats.Default);
+            rtb.Render(MyCanvas);
+
+            //將bitmap編碼成png
+            PngBitmapEncoder png = new PngBitmapEncoder();
+            png.Frames.Add(BitmapFrame.Create(rtb));
+
+            //開啟存檔對話方塊
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "儲存檔案";
+            saveFileDialog.DefaultExt = "*.png";
+            saveFileDialog.Filter = "PNG檔案(*.png)|*.png|全部檔案|*.*";
+            saveFileDialog.ShowDialog();
+            string path = saveFileDialog.FileName;
+
+            //儲存png
+            using (var fs = File.Create(path))
+            {
+
+            }
+
         }
 
         private void MyCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)

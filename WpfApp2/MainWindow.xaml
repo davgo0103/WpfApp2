@@ -11,11 +11,11 @@
             <MenuItem Header="檔案">
                 <CheckBox x:Name="MenuCheckBox" Content="顯示工具列" Click="MenuCheckBox_Checked" IsChecked="True"/>
                 <MenuItem x:Name="ClearCanvasButton" Header="清除畫布" Click="ClearCanvasButton_Click" />
-                <MenuItem Header="儲存畫布"/>
+                <MenuItem x:Name="SaveCanvasMenuItem" Header="儲存畫布" Click="SaveCanvasMenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="色彩">
                 <MenuItem Header="筆刷色彩" Click="coloer_button_Click"/>
-                <MenuItem Header="筆刷色彩"/>
+                <MenuItem Header="填滿色彩"/>
             </MenuItem>
             <MenuItem Header="工具">
                 <MenuItem Header="Line" Click="ShapeButton_Click"/>
