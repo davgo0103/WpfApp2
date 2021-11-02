@@ -163,7 +163,7 @@ namespace WpfApp2
             //儲存png
             using (var fs = File.Create(path))
             {
-
+                png.Save(fs);
             }
 
         }
