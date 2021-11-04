@@ -25,6 +25,8 @@ namespace WpfApp2
         Point start, dest;
         Color currentStrokeColor;
         Brush currentStrokeBrush = new SolidColorBrush(Colors.Black);
+        Brush currentFillBrush = new SolidColorBrush(Colors.Black);
+        Color currentFillColor;
         int currentStrokeThinkness;
         string currtShape = "Line";
         string currentAction = "Draw";
@@ -61,18 +63,53 @@ namespace WpfApp2
         private void DrawRectangle()
         {
             AdjustPoint();
-            
+            double width = dest.X - start.X;
+            double height = dest.Y - start.Y;
+            Rectangle newRectangle = new Rectangle()
+            {
+                Stroke = currentStrokeBrush,
+                StrokeThickness = currentStrokeThinkness,
+                Fill = currentFillBrush,
+                Width = width,
+                Height = height
+            };
+
+            newRectangle.SetValue(Canvas.LeftProperty, start.X);
+            newRectangle.SetValue(Canvas.TopProperty, start.Y);
+            MyCanvas.Children.Add(newRectangle);
 
         }
 
         private void DrawEllipse()
         {
-            throw new NotImplementedException();
+            AdjustPoint();
+            double width = dest.X - start.X;
+            double height = dest.Y - start.Y;
+            Ellipse newEllipse = new Ellipse()
+            {
+                Stroke = currentStrokeBrush,
+                StrokeThickness = currentStrokeThinkness,
+                Fill = currentFillBrush,
+                Width = width,
+                Height = height
+            };
+            newEllipse.SetValue(Canvas.LeftProperty, start.X);
+            newEllipse.SetValue(Canvas.TopProperty, start.Y);
+            MyCanvas.Children.Add(newEllipse);
         }
 
         private void AdjustPoint()
         {
-            throw new NotImplementedException();
+            double X_min, Y_min, X_max, Y_max;
+            X_min = Math.Min(start.X, dest.X);
+            Y_min = Math.Min(start.Y, dest.Y);
+            X_max = Math.Max(start.X, dest.X);
+            Y_max = Math.Max(start.Y, dest.Y);
+
+            start.X = X_min;
+            start.Y = Y_min;
+            dest.X = X_max;
+            dest.Y = Y_max;
         }
 
         private void DrawLine()
@@ -98,7 +135,8 @@ namespace WpfApp2
         {
             currentStrokeColor = GetDialogColor();
             currentStrokeBrush = new SolidColorBrush(currentStrokeColor);
-            color_button.Content = $"筆刷色彩:{currentStrokeColor.ToString()}";
+            color_button.Content = $"筆刷色彩";
+            color_button.Background = currentStrokeBrush;
         }
 
         private Color GetDialogColor()
@@ -114,6 +152,7 @@ namespace WpfApp2
         {
             var btn = sender as System.Windows.Controls.Button;
             currtShape = btn.Content.ToString();
+            currentAction = "Draw";
         }
 
         private void MenuCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -166,6 +205,19 @@ namespace WpfApp2
                 png.Save(fs);
             }
 
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            currentFillColor = GetDialogColor();
+            currentFillBrush = new SolidColorBrush(currentFillColor);
+            button1.Background = currentFillBrush;
+
+        }
+
+        private void EraseButton_Click(object sender, RoutedEventArgs e)
+        {
+            currentAction = "Erase";
         }
 
         private void MyCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
