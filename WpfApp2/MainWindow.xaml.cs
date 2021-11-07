@@ -55,9 +55,31 @@ namespace WpfApp2
                 case "Ellipse":
                     DrawEllipse();
                     break;
+                case "Polygon":
+                    DrawPolygon();
+                    break;
 
             }
             MyCanvas.Cursor = System.Windows.Input.Cursors.Arrow;
+        }
+
+        private void DrawPolygon()
+        {
+            AdjustPoint();
+            Polygon myPolygon = new Polygon();
+            myPolygon.Stroke = currentStrokeBrush;
+            myPolygon.Fill = currentFillBrush;
+            myPolygon.StrokeThickness = currentStrokeThinkness;
+            myPolygon.VerticalAlignment = VerticalAlignment.Center;
+            System.Windows.Point Point1 = new System.Windows.Point(start.X,start.Y);
+            System.Windows.Point Point2 = new System.Windows.Point(dest.X - start.X, dest.Y - start.Y);
+            System.Windows.Point Point3 = new System.Windows.Point(dest.X,dest.Y);
+            PointCollection myPointCollection = new PointCollection();
+            myPointCollection.Add(Point1);
+            myPointCollection.Add(Point2);
+            myPointCollection.Add(Point3);
+            myPolygon.Points = myPointCollection;
+            MyCanvas.Children.Add(myPolygon);
         }
 
         private void DrawRectangle()
@@ -195,7 +217,7 @@ namespace WpfApp2
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Title = "儲存檔案";
             saveFileDialog.DefaultExt = "*.png";
-            saveFileDialog.Filter = "PNG檔案(*.png)|*.png|全部檔案|*.*";
+            saveFileDialog.Filter = "PNG檔案(*.png)|*.png|JPG檔案(*.jpg)|*.jpg|全部檔案|*.*";
             saveFileDialog.ShowDialog();
             string path = saveFileDialog.FileName;
 
