@@ -26,6 +26,7 @@ namespace WpfApp2
         Color currentStrokeColor;
         Brush currentStrokeBrush = new SolidColorBrush(Colors.Black);
         Brush currentFillBrush = new SolidColorBrush(Colors.Black);
+        PointCollection myPointCollection = new PointCollection();
         Color currentFillColor;
         int currentStrokeThinkness;
         string currtShape = "Line";
@@ -56,7 +57,9 @@ namespace WpfApp2
                     DrawEllipse();
                     break;
                 case "Polygon":
-                    DrawPolygon();
+                    dest = e.GetPosition(MyCanvas);
+                    System.Windows.Point Point = new System.Windows.Point(dest.X,dest.Y);
+                    myPointCollection.Add(Point);
                     break;
 
             }
@@ -65,21 +68,19 @@ namespace WpfApp2
 
         private void DrawPolygon()
         {
-            AdjustPoint();
+            
             Polygon myPolygon = new Polygon();
+            myPolygon.Points = myPointCollection;
             myPolygon.Stroke = currentStrokeBrush;
             myPolygon.Fill = currentFillBrush;
             myPolygon.StrokeThickness = currentStrokeThinkness;
             myPolygon.VerticalAlignment = VerticalAlignment.Center;
-            System.Windows.Point Point1 = new System.Windows.Point(start.X,start.Y);
-            System.Windows.Point Point2 = new System.Windows.Point(dest.X - start.X, dest.Y - start.Y);
-            System.Windows.Point Point3 = new System.Windows.Point(dest.X,dest.Y);
-            PointCollection myPointCollection = new PointCollection();
-            myPointCollection.Add(Point1);
-            myPointCollection.Add(Point2);
-            myPointCollection.Add(Point3);
-            myPolygon.Points = myPointCollection;
+            
+
             MyCanvas.Children.Add(myPolygon);
+            myPolygon.BeginInit();
+            //myPointCollection.Clear();
+            
         }
 
         private void DrawRectangle()
@@ -240,6 +241,15 @@ namespace WpfApp2
         private void EraseButton_Click(object sender, RoutedEventArgs e)
         {
             currentAction = "Erase";
+        }
+
+        private void MyCanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if(currtShape == "Polygon")
+            {
+                DrawPolygon();
+            }
+            
         }
 
         private void MyCanvas_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
