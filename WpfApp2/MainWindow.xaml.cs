@@ -164,7 +164,7 @@ namespace WpfApp2
         private Color GetDialogColor()
         {
             ColorDialog dlg = new ColorDialog();
-            dlg.ShowDialog(); 
+            dlg.ShowDialog();
 
             System.Drawing.Color dlgColor = dlg.Color;
             return Color.FromArgb(dlgColor.A, dlgColor.R, dlgColor.G, dlgColor.B);
